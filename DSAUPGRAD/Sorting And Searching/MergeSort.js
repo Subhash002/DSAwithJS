@@ -13,7 +13,7 @@ function mergeSort(arr) {
   if (arr.length === 2) return arr;
   else {
     const left = arr.splice(0, half);
-    const right = arr.splice(0);
+    const right = arr.splice(half + 1, arr.length);
     return merge(mergeSort(left), mergeSort(right));
   }
 }

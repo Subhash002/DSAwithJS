@@ -23,18 +23,20 @@ var distMoney = function (money, children) {
   return result;
 };
 var distMoney = function (money, children) {
-  if (money < children) return -1;
-  let array = new Array(children).fill(1);
-  money = money - children;
-  while (money) {
-    array[i]++;
-    money--;
-    if (array[i] >= 8 && i < children - 1) i++;
-  }
-  let result = 0;
-  for (let x of array) {
-    if (x === 8) result += 1;
-  }
-  if (array.at(-1) === 4) result -= 1;
-  return result;
+ if (money < children) return -1;
+ let moneyArray = new Array(children).fill(1);
+ let i = 0;
+ money = money - 1;
+ while (money) {
+   moneyArray[i]++;
+   money--;
+ }
+ if (moneyArray[i] >= 8 && i < children - 1) i++;
+ let result = 0;
+ for (const x of moneyArray) {
+   if (x === 8) result++;
+ }
+ if (moneyArray.at(-1) === 4) result--;
+ return result;
+
 };
