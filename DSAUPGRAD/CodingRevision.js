@@ -70,3 +70,93 @@ class Stack {
     }
   }
 }
+
+
+class Queue {
+  constructor() {
+    this.front = new Node(null, null);
+    this.rear = new Node(null, null);
+    this.size = 0;
+  }
+
+  enqueue(value) {
+    let newNode = new Node(value, null);
+    if (this.size === 0) {
+      this.rear = this.front = newNode;
+    } else {
+      this.front.next = newNode;
+      this.front = newNode;
+      this.size++;
+    }
+  }
+
+  dequeue() {
+    if (this.size === 0) {
+      return "Cant perform this action at this moment.. try adding few elements in queue";
+    } else {
+      let value = this.rear.value;
+      this.rear = this.rear.next;
+      this.size--;
+      return value;
+    }
+  }
+
+  max() {
+    let holder = this.front;
+    let maxValue = this.front.value;
+    while (holder !== null) {
+      if (holder.value > maxValue) {
+        maxValue = holder.value;
+      }
+      holder = holder.next;
+    }
+    return maxValue;
+  }
+}
+
+class LinkListNode {
+  constructor(value) {
+    this.value = value;
+    this.next = null;
+  }
+}
+
+class LinkList {
+  constructor() {
+    this.head = null;
+    this.size = 0;
+  }
+  append(value) {
+    const newNode = new LinkListNode(value);
+    if (!this.head) this.head = newNode;
+    else {
+      let current = this.head;
+      while (current.next) {
+        current = current.next;
+      }
+      current.next = newNode;
+    }
+    this.size++;
+  }
+
+  prepend(value) {
+    const newNode = new LinkListNode(value);
+    newNode.next = this.head;
+    this.head = newNode;
+    this.size++;
+  }
+
+  insert(index, value) {
+    if (index < 0 || index >= this.size) return false;
+    if (index === 0) this.prepend(value);
+    const newNode = new LinkListNode(value);
+    let current = this.head;
+    for (let i = 0; i < index; i++) {
+      current = current.next;
+    }
+    newNode.next = current.next;
+    current.next = newNode;
+    this.size++;
+    return true;
+  }
+}
