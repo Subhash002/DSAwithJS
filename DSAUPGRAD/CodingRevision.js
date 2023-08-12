@@ -159,4 +159,39 @@ class LinkList {
     this.size++;
     return true;
   }
+  remove(index) {
+    if (index < 0 || index >= this.size || this.size === 0) return false;
+    if (index === 0) {
+      this.head = this.head.next;
+      this.size--;
+      return true;
+    }
+
+    let current = this.head;
+    for (let i = 0; i < index - 1; i++) {
+      current = current.next;
+    }
+    current.next = current.next.next;
+    this.size--;
+  }
+  get(index) {
+    if (index < 0 || index >= this.length) {
+      return null;
+    }
+    let current = this.head;
+    for (let i = 0; i < index; i++) {
+      current = current.next;
+    }
+    return current.value;
+  }
+  size() {
+    return this.length;
+  }
+  print() {
+    let current = this.head;
+    while (current) {
+      console.log(current.value);
+      current = current.next;
+    }
+  }
 }
