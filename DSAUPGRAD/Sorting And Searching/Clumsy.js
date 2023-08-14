@@ -3,6 +3,7 @@ function clumsy(n) {
     return 0;
   }
   let stack = [n--]; // Initialize a stack with the first number
+  console.log(stack);
   let index = 0; // This index will determine which operation to perform
   while (n > 0) {
     if (index % 4 == 0) {
