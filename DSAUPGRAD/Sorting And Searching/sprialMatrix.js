@@ -26,4 +26,32 @@ mat = [
   [0, 1],
   [1, 0],
 ];
-console.log(rowAndMaximumOnes(mat));
+// console.log(rowAndMaximumOnes(mat));
+
+
+const rangeHelper = (mat, target) => {
+  let range;
+  for (let i = 0; i <= mat.length; i++) {
+    if (mat[i][i] > target) {
+      range = i;
+      break;
+    }
+  }
+  return range;
+};
+
+var searchMatrix = function (matrix, target) {
+  const limit = rangeHelper(matrix, target);
+  return limit;
+};
+
+let matrix = [
+    [1, 4, 7, 11, 15],
+    [2, 5, 8, 12, 19],
+    [3, 6, 9, 16, 22],
+    [10, 13, 14, 17, 24],
+    [18, 21, 23, 26, 30],
+  ],
+  target = 5;
+
+console.log(searchMatrix(matrix, target));
