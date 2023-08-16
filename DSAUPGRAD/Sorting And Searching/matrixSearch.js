@@ -19,6 +19,24 @@ var searchMatrix = function (matrix, target) {
   return false;
 };
 
+var searchMatrix = function (matrix, target) {
+  let row = 0;
+  let col = matrix[0].length - 1; // Start from the last column of the first row
+
+  while (row < matrix.length && col >= 0) {
+    if (matrix[row][col] === target) {
+      return true; // Found the target
+    } else if (matrix[row][col] > target) {
+      col--; // Move left in the current row
+    } else {
+      row++; // Move down to the next row
+    }
+  }
+
+  return false; // Target not found
+};
+
+
 let matrix = [
     [1, 4, 7, 11, 15],
     [2, 5, 8, 12, 19],
