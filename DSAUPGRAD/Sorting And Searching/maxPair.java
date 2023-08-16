@@ -1,4 +1,4 @@
-public class Solution {
+public class maxPair {
     public static int findMaxValue(int mat[][], int n) {
         int maxValue=Integer.MIN_VALUE;
         for (int a = 0; a < n-1; a++) 
