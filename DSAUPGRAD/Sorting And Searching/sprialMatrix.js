@@ -161,3 +161,37 @@ function commonElementSelf(mat) {
     map = tempMap;
   }
 }
+
+
+var restoreString = function (s, indices) {
+  const shuffledArray = Array(s.length);
+  for (let i = 0; i < array.length; i++) {
+    shuffledArray[indices[i]] = s[i];
+  }
+  return shuffledArray;
+};
+
+function getMaxArea(hist) {
+  let stack = [];
+  let maxArea = 0;
+  let tp;
+  let areaWithTop;
+  let i = 0;
+  while (i < hist.length) {
+    if (stack.length === 0 || stack[stack.length - 1] <= hist[i]) {
+      stack.push(hist[i]);
+    } else {
+      tp = stack.pop();
+      areaWithTop =
+        hist[tp] * (stack.length === 0 ? i : i - stack[stack.length - 1] - 1);
+      maxArea = Math.max(maxArea, areaWithTop);
+    }
+  }
+  while (stack.length > 0) {
+    tp = stack.pop();
+    areaWithTop =
+      hist[tp] * (stack.length === 0 ? i : i - stack[stack.length - 1] - 1);
+    maxArea = Math.max(maxArea, areaWithTop);
+  }
+  return maxArea;
+}
