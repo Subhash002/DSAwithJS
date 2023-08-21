@@ -156,3 +156,42 @@ const productExceptSelf = (nums) => {
   }
   return output;
 };
+
+var canCompleteCircuit = function (gas, cost) {
+  let totalGas = 0;
+  let totalCost = 0;
+  let currentGas = 0;
+  let currentCost = 0;
+  let start = 0;
+
+  for (let i = 0; i < gas.length; i++) {
+    totalGas += gas[i];
+    totalCost += cost[i];
+    currentGas += gas[i];
+    currentCost += cost[i];
+
+    if (currentGas < currentCost) {
+      start = i + 1;
+      currentGas = 0;
+      currentCost = 0;
+    }
+  }
+
+  return totalGas >= totalCost ? start : -1;
+};
+
+var candy = function (ratings) {
+  let n = ratings.length;
+  let candies = new Array(n).fill(1);
+  for (let i = 1; i < n; i++) {
+    if (ratings[i] > ratings[i - 1]) {
+      candies[i] = candies[i - 1] + 1;
+    }
+  }
+  for (let i = ratings.length - 2; i >= 0; i--) {
+    if (ratings[i] > ratings[i + 1]) {
+      candies[i] = Math.max(candies[i], candies[i + 1] + 1);
+    }
+  }
+  return candies.reduce((a, b) => a + b, 0);
+};
