@@ -105,25 +105,6 @@ function minJumps(nums) {
   return jumps;
 }
 
-// I understand that the greedy approach can be a bit tricky to grasp. Let's break it down further with a simpler example:
-
-// Consider the array nums = [2, 1, 1, 1, 4]. The numbers in the array represent the maximum number of steps that can be taken from that index.
-
-// Here's a step-by-step walkthrough of the greedy approach:
-
-// Initialization: We start at index 0 with nums[0] = 2. The farthest we can reach from here is index 2 (0 + nums[0] = 2). So, farthest = 2 and currentFarthest = 2. We haven't made any jumps yet, so jumps = 0.
-
-// First Iteration (i = 1): We're at nums[1] = 1. The farthest we can reach from here is index 2 (1 + nums[1] = 2). But we already knew we could reach index 2 from the previous step, so farthest remains 2. We haven't reached the end of the current jump (i = 1 is not equal to currentFarthest = 2), so we don't increment jumps.
-
-// Second Iteration (i = 2): We're at nums[2] = 1. The farthest we can reach from here is index 3 (2 + nums[2] = 3). So, we update farthest to 3. Now, we've reached the end of the current jump (i = 2 is equal to currentFarthest = 2), so we increment jumps to 1 and update currentFarthest to farthest = 3.
-
-// Third Iteration (i = 3): We're at nums[3] = 1. The farthest we can reach from here is index 4 (3 + nums[3] = 4). So, we update farthest to 4. We haven't reached the end of the current jump (i = 3 is not equal to currentFarthest = 3), so we don't increment jumps.
-
-// Fourth Iteration (i = 4): We're at the last index (nums[4] = 4). We've reached the end of the current jump (i = 4 is equal to currentFarthest = 4), so we increment jumps to 2.
-
-// Result: We've reached the end of the array with a minimum of 2 jumps.
-
-// The key idea of the greedy approach is to always jump to the farthest reachable index. The farthest variable keeps track of the farthest index that we can reach, while currentFarthest keeps track of the farthest index that we can reach with the current number of jumps. When we reach currentFarthest, we know we have to make another jump, so we increment jumps and update currentFarthest to farthest.
 
 function hIndex(citations) {
   citations = citations.sort((a, b) => b - a);
@@ -135,8 +116,6 @@ function hIndex(citations) {
   }
   return hIndex;
 }
-
-console.log(hIndex([3, 0, 6, 1, 5]));
 
 const productExceptSelf = (nums) => {
   let n = nums.length;
@@ -263,3 +242,45 @@ function trap(heights) {
 
   return result;
 }
+
+var romanToInt = function (s) {
+  let results = 0;
+  let sArray = s.split("");
+  let n = sArray.length;
+  for (let i = n - 1; i >= 0; i--) {
+    if (sArray[i] === "I") {
+      if (sArray[i + 1] === "V" || sArray[i + 1] === "X") {
+        results -= 1;
+      } else {
+        results += 1;
+      }
+    } else if (sArray[i] === "V") {
+      results += 5;
+    } else if (sArray[i] === "X") {
+      if (sArray[i + 1] === "L" || sArray[i + 1] === "C") {
+        results -= 10;
+      } else {
+        results += 10;
+      }
+    } else if (sArray[i] === "L") {
+      results += 50;
+    } else if (sArray[i] === "C") {
+      if (sArray[i + 1] === "D" || sArray[i + 1] === "M") {
+        results -= 100;
+      } else {
+        results += 100;
+      }
+    } else if (sArray[i] === "D") {
+      results += 500;
+    } else if (sArray[i] === "M") {
+      results += 1000;
+    }
+  }
+  return results;
+};
+
+
+console.log(romanToInt("MCMXCIV"));
+// I can be placed before V (5) and X (10) to make 4 and 9. 
+// X can be placed before L (50) and C (100) to make 40 and 90. 
+// C can be placed before D (500) and M (1000) to make 400 and 900.
