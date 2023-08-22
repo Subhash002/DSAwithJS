@@ -51,6 +51,8 @@ const helperSetZero = (mat, row, col) => {
     }
   }
 };
+
+
 var setZeroes = function (matrix) {
   let rows = new Set();
   let column = new Set();
@@ -78,6 +80,7 @@ var reverseWords = function (s) {
     .reverse()
     .join(" ");
 };
+
 function maxProfit(prices) {
   let profit = 0;
   for (let i = 0; i < prices.length - 1; i++) {
@@ -104,7 +107,6 @@ function minJumps(nums) {
   }
   return jumps;
 }
-
 
 function hIndex(citations) {
   citations = citations.sort((a, b) => b - a);
@@ -215,6 +217,8 @@ var trap = function (heights) {
   }
   return trappedWater;
 };
+
+
 function trap(heights) {
   let left = 0;
   let right = heights.length - 1;
@@ -280,7 +284,3 @@ var romanToInt = function (s) {
 };
 
 
-console.log(romanToInt("MCMXCIV"));
-// I can be placed before V (5) and X (10) to make 4 and 9. 
-// X can be placed before L (50) and C (100) to make 40 and 90. 
-// C can be placed before D (500) and M (1000) to make 400 and 900.
