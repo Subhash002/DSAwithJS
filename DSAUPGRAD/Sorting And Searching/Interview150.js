@@ -195,3 +195,44 @@ var candy = function (ratings) {
   }
   return candies.reduce((a, b) => a + b, 0);
 };
+
+function trapRainWater(heights) {
+  let left = 0;
+  let right = heights.length - 1;
+  let leftMax = 0;
+  let rightMax = 0;
+  let trappedWater = 0;
+
+  while (left < right) {
+    if (heights[left] < heights[right]) {
+      heights[left] >= leftMax
+        ? (leftMax = heights[left])
+        : (trappedWater += leftMax - heights[left]);
+      left++;
+    } else {
+      heights[right] >= rightMax
+        ? (rightMax = heights[right])
+        : (trappedWater += rightMax - heights[right]);
+      right--;
+    }
+  }
+  return trappedWater;
+}
+
+var trap = function (heights) {
+  let n = heights.length;
+  let trappedWater = 0;
+  for (let i = 0; i < n; i++) {
+    let leftMax = 0;
+    let rightMax = 0;
+    for (let j = i; j < n; j++) {
+      rightMax = Math.max(rightMax, heights[j]);
+    }
+    for (let j = i; j >= 0; j--) {
+      leftMax = Math.max(leftMax, heights[j]);
+    }
+
+    trappedWater += Math.min(leftMax, rightMax) - heights[i];
+  }
+  return trappedWater;
+};
