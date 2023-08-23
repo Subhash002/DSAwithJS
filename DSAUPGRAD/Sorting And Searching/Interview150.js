@@ -283,6 +283,28 @@ var romanToInt = function (s) {
   return results;
 };
 
+var isPalindrome = function(s) {
+  // Convert the string to lowercase and remove non-alphanumeric characters
+  const cleanStr = s.toLowerCase().replace(/[^a-z0-9]/g, '');
+
+  // Two pointers approach
+  let left = 0;
+  let right = cleanStr.length - 1;
+
+  while (left < right) {
+    // Compare characters at the two pointers
+    if (cleanStr[left] !== cleanStr[right]) {
+      return false;
+    }
+    left++; // Move the left pointer towards the right
+    right--; // Move the right pointer towards the left
+  }
+
+  return true;
+};
+
+let s = "A man, a plan, a canal: Panama";
+console.log(isPalindrome(s));  // Output: true
 
 var isSubsequence = function (s, t) {
   let first = 0;
