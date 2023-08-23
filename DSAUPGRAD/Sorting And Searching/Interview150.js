@@ -303,8 +303,7 @@ var isPalindrome = function(s) {
   return true;
 };
 
-let s = "A man, a plan, a canal: Panama";
-console.log(isPalindrome(s));  // Output: true
+
 
 var isSubsequence = function (s, t) {
   let first = 0;
