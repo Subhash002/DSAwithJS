@@ -350,5 +350,30 @@ var plusOne = function (digits) {
 };
 
 
+var trailingZeroes = function (n) {
+  let count = 0;
+  while (n > 0) {
+    n = Math.floor(n / 5);
+    count += n;
+  }
+  return count;
+};
 
+var mySqrt = function (x) {
+  if (x < 2) return x;
+  let result = 0;
+  let start = 1;
+  let end = x / 2;
 
+  while (start <= end) {
+    let mid = Math.floor(start + (end - start) / 2);
+    let sqr = mid * mid;
+    if (sqr == x) return mid;
+    else if (sqr < x) {
+      start = mid + 1;
+      result = mid;
+    } else end = mid - 1;
+  }
+
+  return result;
+};
