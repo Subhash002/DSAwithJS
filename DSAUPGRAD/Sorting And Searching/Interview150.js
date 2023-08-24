@@ -303,8 +303,6 @@ var isPalindrome = function(s) {
   return true;
 };
 
-
-
 var isSubsequence = function (s, t) {
   let first = 0;
   let second = 0;
@@ -314,4 +312,43 @@ var isSubsequence = function (s, t) {
   }
   return first === s.length;
 };
+
+var twoSum = function (numbers, target) {
+  let low = 0;
+  let high = numbers.length - 1;
+  while (low < high) {
+    let sum = numbers[low] + numbers[high];
+    if (sum === target) return [low + 1, high + 1];
+    else if (sum < target) low++;
+    else high--;
+  }
+};
+
+function maxArea(height) {
+  let maxArea = 0;
+  let left = 0;
+  let right = height.length - 1;
+
+  while (left < right) {
+    let h = Math.min(height[left], height[right]);
+    let w = right - left;
+    let area = h * w;
+    maxArea = Math.max(maxArea, area);
+    if (height[left] > height[right]) {
+      left++;
+    } else {
+      right--;
+    }
+  }
+  return maxArea;
+}
+
+var plusOne = function (digits) {
+  let digitArr = BigInt(digits.join("")) + BigInt(1);
+  let digitSplit = digitArr.toString().split("");
+  return digitSplit;
+};
+
+
+
 
