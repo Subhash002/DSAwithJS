@@ -377,3 +377,83 @@ var mySqrt = function (x) {
 
   return result;
 };
+
+
+var findPeakElement = function (nums) {
+  let left = 0;
+  let right = nums.length - 1;
+  while (left < right) {
+    let mid = Math.floor((left + right) / 2);
+    if (nums[mid] < nums[mid + 1]) left = mid + 1;
+    else right = mid;
+  }
+  return left;
+};
+
+const isMirror = (x, y) => {
+  if (x === null && y === null) return true;
+  if (x === null || y === null) return false;
+  return (
+    x.val === y.val && isMirror(x.right, y.left) && isMirror(x.left, y.right)
+  );
+};
+{
+}
+const isSymmetric = (root) => {
+  return isMirror(root, root);
+};
+
+// class Solution {
+//     public boolean isMirror(TreeNode x,TreeNode y){
+//        if(x==null && y==null) return true;
+//        if(x==null || y==null) return false;
+//        return (x.val == y.val) && isMirror(x.right, y.left) && isMirror(x.left, y.right);
+//     }
+//     public boolean isSymmetric(TreeNode root) {
+//         return isMirror(root,root);
+//     }
+// }
+
+var climbStairs = function (n) {
+  if (n === 1 || n === 0) return 1;
+  let first = 1;
+  let second = 2;
+  for (let i = 3; i <= n; i++) {
+    let third = first + second;
+    first = second;
+    second = third;
+  }
+  return second;
+};
+
+// To improve the code provided for solving the House Robber problem using
+//   1D dynamic programming in JavaScript, you can make the following modifications:
+
+// Add edge case handling: The current solution assumes that the
+//   input array nums is not null and has at least one element. You can add a
+//  check to handle cases where nums is null or empty and return 0 in such cases.
+// Use descriptive variable names: Instead of using oneStep and
+//   twoStep as variable names, you can use more descriptive names like prevMax and
+//  currMax to improve code readability.
+// Fix the loop condition: The current loop condition i <= nums.length is
+//   incorrect. It should be i < nums.length to iterate over all the elements in the nums array.
+
+function rob(nums) {
+  if (!nums || nums.length === 0) return 0;
+  if (nums.length === 1) return nums[0];
+  let prevMax = nums[0];
+  let currentMax = Math.max(nums[0], nums[1]);
+  for (let i = 2; i < nums.length; i++) {
+    let temp = currentMax;
+    currentMax = Math.max(prevMax + nums[i], currentMax);
+    prevMax = temp;
+  }
+  return currentMax;
+}
+
+var invertTree = function (root) {
+  if (root) {
+    [root.left, root.right] = [invertTree(root.right), invertTree(root.left)];
+  }
+  return root;
+};
