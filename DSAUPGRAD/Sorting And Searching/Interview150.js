@@ -426,18 +426,6 @@ var climbStairs = function (n) {
   return second;
 };
 
-// To improve the code provided for solving the House Robber problem using
-//   1D dynamic programming in JavaScript, you can make the following modifications:
-
-// Add edge case handling: The current solution assumes that the
-//   input array nums is not null and has at least one element. You can add a
-//  check to handle cases where nums is null or empty and return 0 in such cases.
-// Use descriptive variable names: Instead of using oneStep and
-//   twoStep as variable names, you can use more descriptive names like prevMax and
-//  currMax to improve code readability.
-// Fix the loop condition: The current loop condition i <= nums.length is
-//   incorrect. It should be i < nums.length to iterate over all the elements in the nums array.
-
 function rob(nums) {
   if (!nums || nums.length === 0) return 0;
   if (nums.length === 1) return nums[0];
@@ -457,3 +445,92 @@ var invertTree = function (root) {
   }
   return root;
 };
+
+var averageOfLevels = function (root) {
+  if (!root) return [];
+
+  let results = [];
+  let queue = [root];
+  while (queue.length) {
+    let sum = 0;
+    let count = 0;
+    let tempQueue = [];
+    while (queue.length) {
+      let node = queue.shift();
+      sum += node.value;
+      count++;
+      if (node.left) tempQueue.push(node.left);
+      if (node.right) tempQueue.push(node.right);
+    }
+    queue = tempQueue;
+    results.push(sum / count);
+  }
+  return results;
+};
+
+var levelOrder = function (root) {
+  if (!root) return [];
+
+  let results = [];
+  let queue = [root];
+  while (queue.length) {
+    let sum = [];
+    let tempQueue = [];
+    while (queue.length) {
+      let node = queue.shift();
+      sum.push(node.val);
+      if (node.left) tempQueue.push(node.left);
+      if (node.right) tempQueue.push(node.right);
+    }
+    queue = tempQueue;
+    results.push(sum);
+  }
+  return results;
+};
+
+var zigzagLevelOrder = function (root) {
+  if (!root) {
+    return [];
+  }
+  let queue = [root];
+  let result = [];
+  let isLeftToRight = true;
+
+  while (queue.length > 0) {
+    let levelSize = queue.length;
+    let levelNode = [];
+    for (let i = 0; i < levelSize; i++) {
+      let currentNode;
+      if (isLeftToRight) currentNode = queue.shift();
+      else currentNode = queue.pop();
+      levelNode.push(currentNode.val);
+      if (currentNode.left) queue.push(currentNode.left);
+      if (currentNode.right) queue.push(currentNode.right);
+      result.push(levelNode);
+      isLeftToRight = !isLeftToRight;
+    }
+  }
+
+  return result;
+};
+var isValidBST = function (root) {
+  let prev = null;
+  function transverse(currentNode) {
+    if (currentNode === null) return true;
+    if (!transverse(currentNode.left)) return false;
+
+    if (prev !== null && prev.val >= currentNode.val) return false;
+    prev = currentNode;
+
+    return transverse(currentNode.right);
+  }
+  return transverse(root);
+};
+
+//     public boolean hasPathSum(TreeNode root, int targetSum) {
+//         if(root==null) return false;
+//         targetSum-=root.val;
+//         if(root.left==null && root.right==null) return targetSum==0;
+//         return hasPathSum(root.left,targetSum) || hasPathSum(root.right,targetSum);
+//     }
+

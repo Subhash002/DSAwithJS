@@ -93,7 +93,7 @@ class BST {
   DFS_IN() {
     let results = [];
     function transverse(currentNode) {
-      if (currentNode.left) transverse(currentNode.left);
+      if (!currentNode.left) transverse(currentNode.left);
       results.push(currentNode.value);
       if (currentNode.right) transverse(currentNode.right);
     }
