@@ -534,3 +534,4 @@ var isValidBST = function (root) {
 //         return hasPathSum(root.left,targetSum) || hasPathSum(root.right,targetSum);
 //     }
 
+
