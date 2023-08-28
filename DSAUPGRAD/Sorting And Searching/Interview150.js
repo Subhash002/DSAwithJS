@@ -628,3 +628,13 @@ function connect(root) {
 
   return root;
 }
+
+var sortedArrayToBST = function (nums) {
+  if (!nums.length) return null;
+  let rootValue = nums[Math.floor(nums.length / 2)];
+  let rootIndex = nums.indexOf(rootValue);
+  const root = new TreeNode(rootValue);
+  root.left = sortedArrayToBST(nums.slice(0, rootIndex));
+  root.right = sortedArrayToBST(nums.slice(rootIndex + 1));
+  return root;
+};
