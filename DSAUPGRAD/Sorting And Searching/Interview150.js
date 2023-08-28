@@ -579,3 +579,52 @@ var buildTree = function (preorder, inorder) {
   root.right = buildTree(preorder.slice(inorderIndex+1), inorder.slice(inorderIndex+1));
   return root;
 };
+// Construct Binary Tree from Inorder and Postorder Traversal
+
+var buildTree = function (inorder, postorder) {
+  if (!postorder.length || !inorder.length) return null;
+
+  let rootValue = postorder[postorder.length - 1];
+  let root = new TreeNode(rootValue);
+
+  let inorderIndex = inorder.indexOf(rootValue);
+
+  root.left = buildTree(
+    inorder.slice(0, inorderIndex),
+    postorder.slice(0, inorderIndex)
+  );
+
+  root.right = buildTree(
+    inorder.slice(inorderIndex + 1),
+    postorder.slice(inorderIndex,postorder.length-1)
+  );
+
+  return root;
+};
+
+
+
+function connect(root) {
+  if (!root) return null;
+
+  const queue = [root];
+
+  while (queue.length > 0) {
+   const level=queue.length;
+   for (let i=0; i<level; i++){
+    let node=queue.shift();
+
+    if(i<level-1) {
+      node.next=queue[0];
+    }
+     if (node.left) {
+      queue.push(node.left);
+     }
+    if(node.right) {
+      queue.push(node.right);
+    }
+   }
+  }
+
+  return root;
+}
