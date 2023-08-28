@@ -535,3 +535,15 @@ var isValidBST = function (root) {
 //     }
 
 
+
+var flatten = function (root) {
+  if (!root) return null;
+  let leftLast = flatten(root.left);
+  let rightLast = flatten(root.right);
+  if (root.left) {
+    leftLast.right = root.right;
+    root.right = root.left;
+    root.left = null;
+  }
+  return rightLast || leftLast || root;
+};
