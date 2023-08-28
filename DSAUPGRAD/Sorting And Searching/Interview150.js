@@ -547,3 +547,35 @@ var flatten = function (root) {
   }
   return rightLast || leftLast || root;
 };
+
+
+
+// The key to understanding this solution lies in understanding the properties of preorder and inorder traversals of a binary tree.
+
+// Preorder Traversal (Root, Left, Right): In a preorder traversal, the root of any subtree will always be the first node visited. 
+// This is why the first element in the preorder array is always the root of the tree (or subtree).
+// Inorder Traversal (Left, Root, Right): In an inorder traversal, all nodes of the left subtree are visited before the root, and all nodes 
+// of the right subtree are visited after the root. This means that in the inorder array, all elements to the left of the root form the left subtree, 
+// and all elements to the right of the root form the right subtree.
+// By using these properties, we can construct the binary tree from the preorder and inorder arrays:
+
+// The first element in the preorder array gives us the root of the tree.
+// We find this root in the inorder array. All elements to the left of the root in the inorder array form the left subtree, and all elements to the 
+// right form the right subtree.
+// We recursively apply this process to the left and right subtrees.
+// For example, consider the preorder array [3, 9, 20, 15, 7] and the inorder array [9, 3, 15, 20, 7].
+
+// The first element in the preorder array is 3, so the root of the tree is 3.
+// In the inorder array, 9 is to the left of 3 and [15, 20, 7] is to the right. So, 9 forms the left subtree and [15, 20, 7] forms the right subtree.
+// We then recursively apply this process to the left and right subtrees.
+// This is why the solution works. It uses the properties of preorder and inorder traversals to construct the binary tree.
+
+var buildTree = function (preorder, inorder) {
+  if(!preorder.length || !inorder.length) return null;
+  let rootValue=preorder[0];
+  let root=new TreeNode(rootValue);
+  let inorderIndex=inorder.indexOf(rootValue);
+  root.left=buildTree(preorder.slice(1,inorderIndex+1),inorder.slice(0,inorderIndex))
+  root.right = buildTree(preorder.slice(inorderIndex+1), inorder.slice(inorderIndex+1));
+  return root;
+};
