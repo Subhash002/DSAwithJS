@@ -842,3 +842,21 @@ Trie.prototype.startsWith = function(prefix) {
 
 
 
+// root
+//   ├── a
+//   │   ├── p
+//   │   │   ├── p
+//   │   │   │   └── l
+//   │   │   │       └── e (isWord: true)
+//   ├── b
+//   │   ├── a
+//   │   │   ├── n
+//   │   │   │   ├── a
+//   │   │   │   │   └── n
+//   │   │   │   │       └── a (isWord: true)
+//   ├── o
+//   │   ├── r
+//   │   │   ├── a
+//   │   │   │   ├── n
+//   │   │   │   │   └── g
+//   │   │   │   │       └── e (isWord: true)
