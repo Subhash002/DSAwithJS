@@ -638,3 +638,151 @@ var sortedArrayToBST = function (nums) {
   root.right = sortedArrayToBST(nums.slice(rootIndex + 1));
   return root;
 };
+
+// ________________These are same ______________ 
+function split(head) {
+  if (!head) return null;
+  let slow = head;
+  let fast = head;
+  while (fast && fast.next && fast.next.next) {
+    slow = slow.next;
+    fast = fast.next.next;
+  }
+  let secondHalf = slow.next;
+  slow.next = null;
+  return secondHalf;
+}
+
+function merge(right, left) {
+  if (!left) return right;
+  if (!right) return left;
+  let result = null;
+  if (right.val <= left.val) {
+    result = right;
+    result.next = merge(right.next, left);
+  } else {
+    result = left;
+    result.next = merge(right, left.next);
+  }
+  return result;
+}
+
+var sortList = function (head) {
+  if (!head || !head.next) return head;
+  let second = split(head);
+  head = sortList(head);
+  second = sortList(second);
+  return merge(head, second);
+};
+
+// _____________-----------------_________________
+
+// _____________----------------TWO SUM PROBLEM ______________--------------
+
+function threeSum(nums){
+  let result=[];
+  nums.sort((a,b)=>a-b);
+  for(let i=0; i<nums.length-2; i++){
+    if(i>0 && nums[i]===nums[i-1]) continue;
+    let j=i+1;
+    let k=nums.length-1;
+    while (j<k) {
+      let sum=nums[i]+nums[j]+nums[k];
+      if(sum===0){
+        result.push([nums[i],nums[j],nums[k]]);
+        while(j<k && nums[j]===nums[j+1]) j++;
+        while(j<k && nums[k]===nums[k-1]) k--;
+        j++;
+        k--;
+      }
+      else if(sum>0) {
+        k--;
+      }
+      else {
+        j++
+      }
+    } 
+  }
+  return result;
+}
+
+// _______________--------------SLIDING WINDOW_____--------------
+var minSubArrayLen = function (target, nums) {
+  let start = 0;
+  let sum = 0;
+  let result = Infinity;
+  for(let end=0; end<nums.length; end++) {
+    sum += nums[end];
+     while(sum>=target){
+        sum-=nums[start];
+        start++;
+     }
+     end++;
+  }
+ return result===Infinity?0:result;
+};
+
+var lengthOfLongestSubstring = function (s) {
+  let start = 0;
+  let result = [];
+  let len = Number.MIN_VALUE;
+  for (let end = 0; end < s.length; end++) {
+    while (result.includes(s[end])) {
+      result.shift();
+      start++;
+    }
+    result.push(s[end]);
+    len = Math.max(len, end - start + 1);
+  }
+  return len;
+};
+
+//Another approach is here..
+var intToRoman = function(num) {
+    //create the list..
+    const M = ["", "M", "MM", "MMM"];
+    const C = ["", "C", "CC", "CCC", "CD", "D", "DC", "DCC", "DCCC", "CM"];
+    const X = ["", "X", "XX", "XXX", "XL", "L", "LX", "LXX", "LXXX", "XC"];
+    const I = ["", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX"];
+    //return solution with this procedure...
+    return M[Math.floor(num / 1000)] + C[Math.floor((num % 1000) / 100)] + X[Math.floor((num % 100) / 10)] + I[num % 10];
+};
+
+var addBinary = function (a, b) {
+  if(a.length===0) return b;
+  if(b.length===0) return a;
+  let carry=a[a.length-1] && b[b.length-1]===1?1:0;
+  let sum=carry ^ b[b.length-1] ^ a[a.length-1];
+  return addBinary(addBinary(a.slice(0,-1),b.slice(0,-1)),sum);
+
+};
+
+
+// __________________------------------------ BITWISE OPERATION FIND SINGLE NUMBER-------------- ________________
+function count(nums) {
+  let result = {};
+  for (let i = 0; i < nums.length; i++) {
+    if (result.hasOwnProperty(nums[i])) {
+      result[nums[i]] += 1;
+    } else {
+      result[nums[i]] = 1;
+    }
+  }
+  return result;
+}
+
+var singleNumber = function (nums) {
+ let result=count(nums);
+ for (const [k,v] of Object.entries(result)) {
+   if(v===1) return parseInt(k);
+ }
+};
+
+var singleNumber = function (nums) {
+  let single = 0;
+  for (let i = 0; i < nums.length; i++) {
+    single ^= nums[i];
+  }
+  return single;
+};
+// __________________------------------------ BITWISE OPERATION FIND SINGLE NUMBER-------------- ________________
