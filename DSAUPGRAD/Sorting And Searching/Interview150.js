@@ -1033,3 +1033,36 @@ var containsNearbyDuplicate = function (nums, k) {
   
 };
 
+var canConstruct = function (r, m) {
+  let map = new Map();
+
+  for (const i of m) {
+    map.set(i, (map.get(i) || 0) + 1);
+  }
+
+  for (const i of r) {
+    if (!map.has(i) || map.get(i) <= 0) return false;
+    map.set(i, map.get(i) - 1);
+  }
+
+  return true;
+};
+
+var wordPattern = function (pattern, s) {
+  s = s.split(" ");
+  pattern = pattern.split("");
+
+  if (pattern.length !== s.length) {
+    return false;
+  }
+
+  let map = new Map();
+  for (let i = 0; i < s.length; i++) {
+    if (!map.has(pattern[i])) {
+      map.set(pattern[i], s[i]);
+    } else if (map.get(pattern[i]) !== s[i]) {
+      return false;
+    }
+  }
+  return true;
+};
