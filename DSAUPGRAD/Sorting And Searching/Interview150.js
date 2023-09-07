@@ -996,3 +996,40 @@ function countLiveNeighbors(board, r, c) {
 
   return count;
 }
+
+// ___________________ ---------- Happy Number --------- ________
+function square(n) {
+  return Array.from(String(n), Number).reduce((acc, num) => acc + num ** 2, 0);
+}
+
+var isHappy = function (n) {
+  n = square(n);
+  if (n.toString().length === 1) {
+    if (n === 1) return true;
+    else return false;
+  } else return isHappy(n);
+};
+function isHappy(n) {
+  let seen = new Set();
+  while (n !== 1 && !seen.has(n)) {
+    seen.add(n);
+    n = square(n);
+  }
+  return n === 1;
+} // Both are working but set one is working better
+// ___________________ ---------- Happy Number --------- ________
+
+var containsNearbyDuplicate = function (nums, k) {
+  const map = new Map();
+  for (let i = 0; i < nums.length; i++) {
+  if(map.has(nums[i])){
+    let lastIndex = map.get(nums[i]);
+    if(Math.abs(i-lastIndex)<=k) return true;
+  }
+
+    map.set(nums[i],i);
+  }
+ return false;
+  
+};
+
