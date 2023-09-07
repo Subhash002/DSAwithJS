@@ -860,3 +860,139 @@ Trie.prototype.startsWith = function(prefix) {
 //   │   │   │   ├── n
 //   │   │   │   │   └── g
 //   │   │   │   │       └── e (isWord: true)
+
+var convert = function (s, numRows) {
+  if (s.length === 0 || numRows >= s.length || numRows === 1) return s;
+  let rows = new Array(numRows).fill("");
+  let index = 0;
+  let step = 0;
+  for (const c of s) {
+    rows[index] += c;
+    if (index === 0) {
+      step = 1;
+    } else if (index === numRows - 1) step = -1;
+    index += step;
+  }
+  return rows.join("");
+};
+
+var isValidSudoku = function (board) {
+  for (var i = 0; i < board.length; i++) {
+    let contain = new Set();
+    for (var j = 0; j < board[i].length; j++) {
+      let cell = board[i][j];
+      if (cell === ".") continue;
+      if (contain.has(cell)) return false;
+      contain.add(cell);
+    }
+  }
+  for (var i = 0; i < board.length; i++) {
+    let contain = new Set();
+    for (var j = 0; j < board[i].length; j++) {
+      let cell = board[j][i];
+      if (cell === ".") continue;
+      if (contain.has(cell)) return false;
+      contain.add(cell);
+    }
+  }
+  for (let i = 0; i < 3; i++) {
+    for (let j = 0; j < 3; j++) {
+      let contain = new Set();
+      for (let k = 0; k < 3; k++) {
+        for (let l = 0; l < 3; l++) {
+          let cell = board[3 * i + k][3 * j + l];
+          if (cell === ".") continue;
+          if (contain.has(cell)) return false;
+          contain.add(cell);
+        }
+      }
+    }
+  }
+  return true;
+};
+
+var camelMatch = function (queries, pattern) {
+  const isUpperCase = (str) => str.toUpperCase() === str;
+  const camelCaseCheck = (ptn, str) => {
+    let a = 0;
+    for (let i = 0; i < str.length; i++) {
+      if (str[i] === ptn[i]) a++;
+      else if (isUpperCase(ptn[i]) || ptn[i] !== str[i]) return false;
+    }
+    return a === ptn.length;
+  };
+
+  return queries.map((item) => camelCaseCheck(pattern, item));
+};
+
+// pattern = "FoBaT"
+//  FooBarTest
+
+var gameOfLife = function (board) {
+  const r = board.length;
+  const c = board[0].length;
+
+  for (let i = 0; i < r; i++) {
+    for (let j = 0; j < c; j++) {
+      let cell = board[i][j];
+      const liveCount = countLiveNeighbors(board, i, j);
+
+      if (cell === 1) {
+        if (liveCount < 2 || liveCount > 3) {
+          board[i][j] = -1; // Mark the cell as dead in the current generation
+        }
+      } else {
+        if (liveCount === 3) {
+          board[i][j] = 2; // Mark the cell as alive in the current generation
+        }
+      }
+    }
+  }
+
+  // Update the board based on the marked cells
+  for (let i = 0; i < r; i++) {
+    for (let j = 0; j < c; j++) {
+      if (board[i][j] === -1) {
+        board[i][j] = 0; // Dead cell in the next generation
+      } else if (board[i][j] === 2) {
+        board[i][j] = 1; // Alive cell in the next generation
+      }
+    }
+  }
+};
+
+function countLiveNeighbors(board, r, c) {
+  const m = board.length;
+  const n = board[0].length;
+  let count = 0;
+
+  // Define the directions to check for neighbors
+  const directions = [
+    [-1, -1],
+    [-1, 0],
+    [-1, 1],
+    [0, -1],
+    [0, 1],
+    [1, -1],
+    [1, 0],
+    [1, 1],
+  ];
+
+  for (let i = 0; i < directions.length; i++) {
+    const [dx, dy] = directions[i];
+    const newRow = r + dx;
+    const newCol = c + dy;
+
+    if (
+      newRow >= 0 &&
+      newRow < m &&
+      newCol >= 0 &&
+      newCol < n &&
+      (board[newRow][newCol] === 1 || board[newRow][newCol] === -1)
+    ) {
+      count++;
+    }
+  }
+
+  return count;
+}
