@@ -1066,3 +1066,26 @@ var wordPattern = function (pattern, s) {
   }
   return true;
 };
+
+
+var isAnagram = function (s, t) {
+  if (s.length !== t.length) return false;
+  let map = new Map();
+  for (const c of s) map.set(c, (map.get(c) || 0) + 1);
+  for (const c of t) if (map.has(c)) map.set(c, map.get(c) - 1);
+  for (const [_, v] of map) {
+    if (v > 0) return false;
+  }
+  return true;
+};
+var longestConsecutive = function (nums) {
+  nums = nums.sort((a, b) => a - b);
+  let count = 0;
+  let maxCount = 0;
+  for (let i = 0; i < nums.length - 1; i++) {
+    if (nums[i + 1] === nums[i] + 1) count++;
+    else if (nums[i] !== nums[i + 1]) count = 0;
+    maxCount = Math.max(maxCount, count);
+  }
+  return maxCount + 1;
+};
