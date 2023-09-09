@@ -1089,3 +1089,74 @@ var longestConsecutive = function (nums) {
   }
   return maxCount + 1;
 };
+
+// Hackerrank
+function validTgl(nums) {
+  const validTriangles = [];
+  for (let i = 0; i < nums.length - 2; i++) {
+    for (let j = i+1 ; j < nums.length - 1; j++) {
+      for (let k = j+1; k < nums.length; k++) {
+        if (
+          nums[i] + nums[j] > nums[k] &&
+          nums[i] + nums[k] > nums[j] &&
+          nums[j] + nums[k] > nums[i]
+        ) {
+          validTriangles.push([nums[i], nums[j], nums[k]]);
+        }
+      }
+    }
+  }
+  return validTriangles.length > 0 ? validTriangles : -1;
+}
+
+let uniquePerimeters = arrays=>Array.from(new Set(arrays.map(tringle=>tringle[0]+tringle[1]+tringle[2])));
+
+
+
+var searchRange = function (nums, target) {
+  let result = [-1, -1];
+  result[0] = findFirstIndex(nums, target);
+  result[1] = findLastIndex(nums, target);
+  return result;
+};
+
+function findFirstIndex(nums, target) {
+  let index = -1;
+  let start = 0;
+  let end = nums.length - 1;
+  while (start <= end) {
+    let midPoint = Math.floor(start + (end - start) / 2);
+    if (nums[midPoint] >= target) {
+      end = midPoint - 1;
+    } else {
+      start = midPoint + 1;
+    }
+
+    if (nums[midPoint] === target) {
+      index = midPoint;
+    }
+  }
+  return index;
+}
+
+function findLastIndex(nums, target) {
+  let index = -1;
+  let start = 0;
+  let end = nums.length - 1;
+  while (start <= end) {
+    let midPoint = Math.floor(start + (end - start) / 2);
+    if (nums[midPoint] <= target) {
+      start = midPoint + 1;
+    } else {
+      end = midPoint - 1;
+    }
+
+    if (nums[midPoint] === target) {
+      index = midPoint;
+    }
+  }
+  return index;
+}
+
+
+
