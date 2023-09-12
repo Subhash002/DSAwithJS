@@ -1158,5 +1158,118 @@ function findLastIndex(nums, target) {
   return index;
 }
 
+var moveZeroes = function (nums) {
+  let a = 0;
+  for (let i = 0; i < nums.length; i++) {
+    if (nums[i] !== 0) nums[a++] = nums[i];
+  }
+  for (let i = a; i < nums.length; i++) {
+    nums[i] = 0;
+  }
+};
 
+function addTwoNumbers(l1, l2) {
+  let dummyHead = new ListNode(0);
+  let p = l1;
+  let q = l2;
+  let current = dummyHead;
+  let carry = 0;
+  while (p !== null && q !== null) {
+    let x = p !== null ? p.value : 0;
+    let y = q !== null ? q.value : 0;
+    let sum = x + y + carry;
+    carry = Math.floor(sum / 10);
+    current.next = new ListNode(sum % 10);
+    current = current.next;
+    if (p !== null) p = p.next;
+    if (q !== null) q = q.next;
+  }
+  if (carry > 0) current.next = new ListNode(carry);
+  return dummyHead.next;
+}
 
+function prime(n) {
+  if (n < 2) return false;
+  for (let i = 2; i < n; i++) {
+    if (n % i === 0) return false;
+  }
+  return true;
+}
+
+var repeatedSubstringPattern = function (s) {
+  if (s.length === 1) return false;
+  for (let i = 0; i < s.length; i++) {
+    let subString = s.slice(0, i);
+    let splitArray = s.split(subString);
+    if (splitArray.every((i) => i === "")) return true;
+  }
+  return false;
+};
+var generate = function (numRows) {
+  const triangle = [];
+  for (let row = 0; row < numRows; row++) {
+    let currentRow = [];
+    for (let col = 0; col <= row; col++) {
+      if (col === 0 || col === row) {
+        currentRow.push(1);
+      } else {
+        let prevRow = triangle[row - 1];
+        let element = prevRow[col] + prevRow[col - 1];
+        currentRow.push(element);
+      }
+    }
+    triangle.push(currentRow);
+  }
+  return triangle;
+};
+
+var topKFrequent = function (nums, k) {
+  let map = new Map();
+  let result = [];
+  nums.forEach((num) => {
+    map.set(num, (map.get(num) || 0) + 1);
+  });
+  let sortedEntries = [...map.entries()].sort((a, b) => b[1] - a[1]);
+  for (let i = 0; i < k; i++) {
+    result.push(sortedEntries[i][0]);
+  }
+  return result;
+};
+
+// ___________________________ ------ START ------ ________________________________
+var MyStack = function () {
+  this.q = [];
+};
+
+/**
+ * @param {number} x
+ * @return {void}
+ */
+MyStack.prototype.push = function (x) {
+  this.q.push(x);
+  for (let i = 0; i < this.q.length - 1; i++) {
+    this.q.push(this.q.shift());
+  }
+};
+
+/**
+ * @return {number}
+ */
+MyStack.prototype.pop = function () {
+  return this.q.shift();
+};
+
+/**
+ * @return {number}
+ */
+MyStack.prototype.top = function () {
+  return this.q[0];
+};
+
+/**
+ * @return {boolean}
+ */
+MyStack.prototype.empty = function () {
+  return this.q.length === 0;
+};
+// ___________________________ ------ END ------ ________________________________
