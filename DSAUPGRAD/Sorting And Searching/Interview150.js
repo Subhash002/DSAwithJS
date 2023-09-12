@@ -1273,3 +1273,60 @@ MyStack.prototype.empty = function () {
   return this.q.length === 0;
 };
 // ___________________________ ------ END ------ ________________________________
+
+function getLength(head) {
+  let current = head;
+  let length = 0;
+
+  while (current !== null) {
+    length++;
+    current = current.next;
+  }
+
+  return length;
+}
+
+var removeNthFromEnd = function (head, n) {
+  let dummyNode = new ListNode();
+  dummyNode.next = head;
+  let front = dummyNode;
+  let back = dummyNode;
+  for (let i = 0; i < n; i++) {
+    front = front.next;
+  }
+  while (front.next != null) {
+    front = front.next;
+    back = back.next;
+  }
+  back.next = back.next.next;
+  return dummyNode.next;
+};
+
+var exist = function (board, word) {
+  function dfs(r, c, i) {
+    if (word.length === i) return true;
+    if (
+      r >= board.length ||
+      c > board[0].length ||
+      r < 0 ||
+      c < 0 ||
+      board[r][c] !== word[i]
+    )
+      return false;
+    board[r][c] = "#";
+    if (
+      dfs(r + 1, c, i + 1) ||
+      dfs(r - 1, c, i + 1) ||
+      dfs(r, c - 1, i + 1) ||
+      dfs(r, c + 1, i + 1)
+    )
+      return true;
+    board[r][c] = word[i];
+  }
+  for (let i = 0; i < board.length; i++) {
+    for (let j = 0; j < board[0].length; j++) {
+      if (board[i][j] === word[0] && dfs(i, j, 0)) return true;
+    }
+  }
+  return false;
+};
