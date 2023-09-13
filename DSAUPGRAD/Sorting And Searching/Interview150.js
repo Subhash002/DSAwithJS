@@ -1330,3 +1330,34 @@ var exist = function (board, word) {
   }
   return false;
 };
+
+
+var missingNumber = function (nums) {
+  if (nums.length === 1 && nums[0] === 1) return 0;
+  nums = nums.sort((a, b) => a - b);
+  console.log(nums);
+  for (let i = 0; i < nums.length - 1; i++) {
+    let diff = nums[i + 1] - nums[i];
+    if (diff !== 1) return nums[i] + 1;
+  }
+  return nums.includes(0) ? nums[nums.length - 1] + 1 : 0;
+};
+
+var canBeEqual = function (s1, s2) {
+  var swap = function (str, i, j) {
+    var arr = str.split("");
+    var temp = arr[i];
+    arr[i] = arr[j];
+    arr[j] = temp;
+    return arr.join("");
+  };
+  if (s1 === s2) return true;
+  s1 = swap(s1, 0, 2);
+  if (s1 === s2) return true;
+  s1 = swap(s1, 0, 2);
+  s1 = swap(s1, 1, 3);
+  if (s1 === s2) return true;
+  s1 = swap(s1, 0, 2);
+  if (s1 === s2) return true;
+  return false;
+};
